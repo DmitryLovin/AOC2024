@@ -5,7 +5,7 @@ import com.dmitrylovin.aoc2024.utils.FileUtils;
 
 import java.util.*;
 
-public class Day01 implements DayHandler {
+public class Day01 extends DayHandler {
     private final String separator = " {3}";
 
     private final String[] input;
@@ -17,14 +17,7 @@ public class Day01 implements DayHandler {
     }
 
     @Override
-    public void handle() {
-        System.out.printf("P1 Test: %d\n", partOne(true));
-        System.out.printf("P1: %d\n", partOne(false));
-        System.out.printf("P2 Test: %d\n", partTwo(true));
-        System.out.printf("P2: %d\n", partTwo(false));
-    }
-
-    private int partOne(boolean isTestRun) {
+    Object partOne(boolean isTestRun) {
         String[] input = isTestRun ? testInput : this.input;
 
         List<IntPair> pairs = Arrays.stream(input).map((row) -> {
@@ -39,7 +32,8 @@ public class Day01 implements DayHandler {
                 .sum();
     }
 
-    private int partTwo(boolean isTestRun) {
+    @Override
+    Object partTwo(boolean isTestRun) {
         String[] input = isTestRun ? testInput : this.input;
         List<Integer> leftList = new ArrayList<>();
         HashMap<Integer, Integer> rightList = new HashMap<>();
