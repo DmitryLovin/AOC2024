@@ -1,6 +1,7 @@
 package com.dmitrylovin.aoc2024;
 
 import com.dmitrylovin.aoc2024.days.Day01;
+import com.dmitrylovin.aoc2024.days.Day02;
 import com.dmitrylovin.aoc2024.days.DayHandler;
 
 import java.io.BufferedReader;
@@ -17,6 +18,7 @@ public class Main {
         DAYS = new HashMap<>();
 
         DAYS.put(1, Day01::new);
+        DAYS.put(2, Day02::new);
     }
 
     private static final BufferedReader READER = new BufferedReader(
