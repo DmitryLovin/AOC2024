@@ -1,8 +1,6 @@
 package com.dmitrylovin.aoc2024;
 
-import com.dmitrylovin.aoc2024.days.Day01;
-import com.dmitrylovin.aoc2024.days.Day02;
-import com.dmitrylovin.aoc2024.days.DayHandler;
+import com.dmitrylovin.aoc2024.days.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,6 +17,7 @@ public class Main {
 
         DAYS.put(1, Day01::new);
         DAYS.put(2, Day02::new);
+        DAYS.put(3, Day03::new);
     }
 
     private static final BufferedReader READER = new BufferedReader(
