@@ -9,35 +9,39 @@ public class Day04 extends DayHandler {
     private final String[] input;
     private final String[] testInput;
 
-    HashMap<String, String> CHARS = new HashMap<>();
-    HashSet<String> MAS = new HashSet<>();
+    HashMap<String, Integer> WEIGHTS = new HashMap<>();
 
     public Day04() {
         input = FileUtils.parseInput("04");
         testInput = FileUtils.parseTestInput("04");
-        CHARS.put("M", "X");
-        CHARS.put("A", "M");
-        CHARS.put("S", "A");
-        MAS.add("MAS");
-        MAS.add("SAM");
+        WEIGHTS.put("X", 1);
+        WEIGHTS.put("M", 2);
+        WEIGHTS.put("A", 4);
+        WEIGHTS.put("S", 8);
     }
 
     @Override
     Object partOne(boolean isTestRun) {
         String[] input = isTestRun ? testInput : this.input;
 
-        List<String[][]> data = new ArrayList<>();
-        data.add(ArrayUtils.splitChars(input));
+        List<Integer[][]> data = new ArrayList<>();
+        data.add(ArrayUtils.mappedMatrix(input, WEIGHTS));
 
         data.add(ArrayUtils.rotated(data.get(0)));
         data.add(ArrayUtils.diagonal(data.get(0)));
         data.add(ArrayUtils.diagonal(data.get(1)));
 
         return data.stream().mapToInt((matrix) ->
-            Arrays.stream(matrix).mapToInt((row) -> {
-                String[] reverseRow = ArrayUtils.reversed(row);
-                return line(row) + line(reverseRow);
-            }).sum()
+                Arrays.stream(matrix).mapToInt((row) -> {
+                    int result = 0;
+                    for (int i = 0; i < row.length - 3; i++) {
+                        if ((row[i] > row[i + 1] && row[i + 1] > row[i + 2] && row[i + 2] > row[i + 3]) ||
+                                (row[i] < row[i + 1] && row[i + 1] < row[i + 2] && row[i + 2] < row[i + 3])) {
+                            result++;
+                        }
+                    }
+                    return result;
+                }).sum()
         ).sum();
     }
 
@@ -45,38 +49,17 @@ public class Day04 extends DayHandler {
     Object partTwo(boolean isTestRun) {
         String[] input = isTestRun ? testInput : this.input;
 
-        String[][] rows = ArrayUtils.splitChars(input);
+        Integer[][] values = ArrayUtils.mappedMatrix(input, WEIGHTS);
 
         int result = 0;
 
-        for (int i = 1; i < rows.length - 1; i++) {
-            for (int j = 1; j < rows.length - 1; j++) {
-                String[] chars = new String[]{rows[i - 1][j - 1],rows[i][j],rows[i + 1][j + 1]};
-                String[] chars2 = new String[]{rows[i + 1][j - 1],rows[i][j],rows[i - 1][j + 1]};
-                String word = String.join("",chars);
-                String word2 = String.join("",chars2);
+        for (int i = 1; i < values.length - 1; i++) {
+            for (int j = 1; j < values.length - 1; j++) {
+                if (values[i][j] != 4)
+                    continue;
 
-                if(MAS.contains(word) && MAS.contains(word2))
+                if (values[i - 1][j - 1] + values[i + 1][j + 1] == 10 && values[i + 1][j - 1] + values[i - 1][j + 1] == 10)
                     result++;
-            }
-        }
-        return result;
-    }
-
-    private int line(String[] line) {
-        String prev = "";
-        int result = 0;
-        Iterator<String> iterator = Arrays.stream(line).iterator();
-        while (iterator.hasNext()) {
-            String next = iterator.next();
-            if (Objects.equals(CHARS.get(next), prev)) {
-                prev = next;
-                if (next.equals("S"))
-                    result++;
-            } else if (next.equals("X")) {
-                prev = next;
-            } else {
-                prev = "";
             }
         }
         return result;
