@@ -4,6 +4,22 @@ import java.lang.reflect.Array;
 import java.util.Map;
 
 public class ArrayUtils {
+    public static int[] insertX(int arr[],
+                                int x, int pos) {
+        int newarr[] = new int[arr.length + 1];
+
+        for (int i = 0; i < newarr.length; i++) {
+            if (i < pos)
+                newarr[i] = arr[i];
+            else if (i == pos)
+                newarr[i] = x;
+            else
+                newarr[i] = arr[i - 1];
+        }
+
+        return newarr;
+    }
+
     public static int[] remove(int[] arr, int in) {
 
         if (arr == null || in < 0 || in >= arr.length) {
@@ -34,7 +50,7 @@ public class ArrayUtils {
         return result;
     }
 
-    public static<T> T[][] mappedMatrix(String[] lines, Map<String, T> map) {
+    public static <T> T[][] mappedMatrix(String[] lines, Map<String, T> map) {
         Class<?> klazz = map.values().iterator().next().getClass();
         T[][] result = (T[][]) Array.newInstance(klazz, lines.length, lines.length);
 
@@ -47,7 +63,7 @@ public class ArrayUtils {
         return result;
     }
 
-    public static<T> T[] reversed(T[] array) {
+    public static <T> T[] reversed(T[] array) {
         Class<?> klazz = array[0].getClass();
         T[] result = (T[]) Array.newInstance(klazz, array.length);
         for (int i = 0; i < array.length; i++) {
@@ -56,7 +72,7 @@ public class ArrayUtils {
         return result;
     }
 
-    public static<T> T[][] rotated(T[][] matrix) {
+    public static <T> T[][] rotated(T[][] matrix) {
         Class<?> klazz = matrix[0][0].getClass();
         T[][] result = (T[][]) Array.newInstance(klazz, matrix.length, matrix.length);
 
@@ -69,12 +85,12 @@ public class ArrayUtils {
         return result;
     }
 
-    public static<T> T[][] diagonal(T[][] matrix) {
+    public static <T> T[][] diagonal(T[][] matrix) {
         Class<?> klazz = matrix[0][0].getClass();
         T[][] result = (T[][]) Array.newInstance(klazz, matrix.length * 2 - 1, 0);
 
         for (int i = 0; i < result.length; i++) {
-            result[i] = (T[])Array.newInstance(klazz, i > result.length / 2 ? result.length - (i) : i + 1);
+            result[i] = (T[]) Array.newInstance(klazz, i > result.length / 2 ? result.length - (i) : i + 1);
             for (int j = 0; j < result[i].length; j++) {
                 if (i + 1 > matrix.length) {
                     result[i][j] = matrix[i - j - (i - (matrix.length - 1))][j + (i - (matrix.length - 1))];
