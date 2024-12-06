@@ -66,7 +66,7 @@ public class Day05 extends DayHandler {
         MAP = new HashMap<>();
         while (iterator.hasNext()) {
             String line = iterator.next().trim();
-            if (line.equals(""))
+            if (line.isEmpty())
                 break;
             Iterator<Integer> mapItems = Arrays.stream(line.split("\\|")).mapToInt(Integer::parseInt).iterator();
             Integer key = mapItems.next();
