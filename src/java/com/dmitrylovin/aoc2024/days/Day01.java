@@ -20,7 +20,7 @@ public class Day01 extends DayHandler {
     Object partOne(boolean isTestRun) {
         String[] input = isTestRun ? testInput : this.input;
 
-        List<IntPair> pairs = Arrays.stream(input).map((row) -> {
+        List<IntPair> pairs = Arrays.stream(input).parallel().map((row) -> {
             Iterator<Integer> values = Arrays.stream(row.split(separator)).mapToInt(Integer::parseInt).iterator();
             return new IntPair(values.next(), values.next());
         }).toList();

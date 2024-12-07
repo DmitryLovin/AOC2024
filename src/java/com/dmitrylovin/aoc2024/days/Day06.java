@@ -37,7 +37,7 @@ public class Day06 extends DayHandler {
         HashSet<Position> possibleObstacles = visited(init.copy(), width, height);
         possibleObstacles.remove(init.pos());
 
-        return possibleObstacles.stream().mapToInt((pos) -> deadEnd(init, pos, width, height)).sum();
+        return possibleObstacles.stream().parallel().mapToInt((pos) -> deadEnd(init, pos, width, height)).sum();
     }
 
     private Vector init(String[] input) {

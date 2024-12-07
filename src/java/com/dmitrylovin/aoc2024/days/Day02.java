@@ -21,7 +21,7 @@ public class Day02 extends DayHandler {
     Object partOne(boolean isTestRun) {
         String[] input = isTestRun ? testInput : this.input;
 
-        return Arrays.stream(input).mapToInt((row) ->
+        return Arrays.stream(input).parallel().mapToInt((row) ->
                 isValid(
                         Arrays.stream(row.split(separator)).mapToInt(Integer::parseInt).toArray()
                 ) ? 1 : 0).sum();
@@ -31,7 +31,7 @@ public class Day02 extends DayHandler {
     Object partTwo(boolean isTestRun) {
         String[] input = isTestRun ? testInput : this.input;
 
-        return Arrays.stream(input).mapToInt((row) -> {
+        return Arrays.stream(input).parallel().mapToInt((row) -> {
             int[] values = Arrays.stream(row.split(separator)).mapToInt(Integer::parseInt).toArray();
 
             if (isValid(values))

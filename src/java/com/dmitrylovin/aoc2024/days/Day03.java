@@ -22,7 +22,7 @@ public class Day03 extends DayHandler {
     Object partOne(boolean isTestRun) {
         String[] input = isTestRun ? testInput : this.input;
 
-        return Arrays.stream(input).mapToInt((row) ->
+        return Arrays.stream(input).parallel().mapToInt((row) ->
                 PATTERN.matcher(row).results().mapToInt((matchResult) -> {
                     Iterator<Integer> iterator = Arrays.stream(matchResult.group(1).split(",")).mapToInt(Integer::parseInt).iterator();
                     return iterator.next() * iterator.next();

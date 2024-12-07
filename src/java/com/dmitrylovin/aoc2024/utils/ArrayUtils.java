@@ -4,38 +4,38 @@ import java.lang.reflect.Array;
 import java.util.Map;
 
 public class ArrayUtils {
-    public static int[] insertX(int arr[],
-                                int x, int pos) {
-        int newarr[] = new int[arr.length + 1];
-
-        for (int i = 0; i < newarr.length; i++) {
-            if (i < pos)
-                newarr[i] = arr[i];
-            else if (i == pos)
-                newarr[i] = x;
-            else
-                newarr[i] = arr[i - 1];
+    public static void moveDown (int[] arr, int from, int to) {
+        int value = arr[from];
+        for(int i = from; i > to; i--){
+            arr[i] = arr[i - 1];
         }
-
-        return newarr;
+        arr[to] = value;
     }
 
-    public static int[] remove(int[] arr, int in) {
+    public static int[] insert(int[] arr, int value, int index) {
+        int[] result = new int[arr.length + 1];
 
-        if (arr == null || in < 0 || in >= arr.length) {
-            return arr;
+        for (int i = 0; i < result.length; i++) {
+            if (i < index)
+                result[i] = arr[i];
+            else if (i == index)
+                result[i] = value;
+            else
+                result[i] = arr[i - 1];
         }
 
-        int[] arr2 = new int[arr.length - 1];
+        return result;
+    }
+
+    public static int[] remove(int[] arr, int index) {
+        int[] result = new int[arr.length - 1];
 
         for (int i = 0, k = 0; i < arr.length; i++) {
-            if (i == in)
-                continue;
-
-            arr2[k++] = arr[i];
+            if (i != index)
+                result[k++] = arr[i];
         }
 
-        return arr2;
+        return result;
     }
 
     public static String[][] matrix(String[] lines) {

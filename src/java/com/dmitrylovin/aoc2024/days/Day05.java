@@ -26,12 +26,11 @@ public class Day05 extends DayHandler {
         return StreamSupport.stream(iterable.spliterator(), false).mapToInt((row) -> {
             int[] items = Arrays.stream(row.trim().split(",")).mapToInt(Integer::parseInt).toArray();
             for (int i = items.length - 1; i >= 0; i--) {
-                Set<Integer> set = MAP.get(items[i]);
-                if (set == null)
-                    continue;
-                for (int j = i - 1; j >= 0; j--) {
-                    if (set.contains(items[j])) {
-                        return 0;
+                if(MAP.get(items[i]) instanceof Set<Integer> set) {
+                    for (int j = i - 1; j >= 0; j--) {
+                        if (set.contains(items[j])) {
+                            return 0;
+                        }
                     }
                 }
             }
@@ -46,15 +45,14 @@ public class Day05 extends DayHandler {
         initMap(iterator);
         Iterable<String> iterable = () -> iterator;
 
-        return StreamSupport.stream(iterable.spliterator(), false).mapToInt((row) -> {
+        return StreamSupport.stream(iterable.spliterator(), false).parallel().mapToInt((row) -> {
             int[] items = Arrays.stream(row.trim().split(",")).mapToInt(Integer::parseInt).toArray();
             for (int i = items.length - 1; i >= 0; i--) {
-                Set<Integer> set = MAP.get(items[i]);
-                if (set == null)
-                    continue;
-                for (int j = i - 1; j >= 0; j--) {
-                    if (set.contains(items[j])) {
-                        return sortAndGet(items);
+                if(MAP.get(items[i]) instanceof Set<Integer> set) {
+                    for (int j = i - 1; j >= 0; j--) {
+                        if (set.contains(items[j])) {
+                            return sortFromAndGet(items, i, (items.length - 1) / 2);
+                        }
                     }
                 }
             }
@@ -80,18 +78,15 @@ public class Day05 extends DayHandler {
         }
     }
 
-    private int sortAndGet(int[] items) {
-        for (int i = items.length - 1; i >= 0; i--) {
-            Set<Integer> set = MAP.get(items[i]);
-            if (set == null)
-                continue;
-            for (int j = i - 1; j >= 0; j--) {
-                if (set.contains(items[j])) {
-                    int item = items[i];
-                    int[] newItems = ArrayUtils.remove(items, i);
-                    items = ArrayUtils.insertX(newItems, item, j);
-                    i++;
-                    break;
+    private int sortFromAndGet(int[] items, int from, int to) {
+        for (int i = from; i >= to; i--) {
+            if(MAP.get(items[i]) instanceof Set<Integer> set) {
+                for (int j = i - 1; j >= 0; j--) {
+                    if (set.contains(items[j])) {
+                        ArrayUtils.moveDown(items, i, j);
+                        i++;
+                        break;
+                    }
                 }
             }
         }
