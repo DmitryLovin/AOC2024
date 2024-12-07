@@ -1,23 +1,23 @@
 package com.dmitrylovin.aoc2024.days;
 
 import com.dmitrylovin.aoc2024.utils.ArrayUtils;
-import com.dmitrylovin.aoc2024.utils.FileUtils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 public class Day04 extends DayHandler {
-    private final String[] input;
-    private final String[] testInput;
-
-    HashMap<String, Integer> WEIGHTS = new HashMap<>();
+    private final static HashMap<String, Integer> WEIGHTS = new HashMap<>() {{
+        put("X", 1);
+        put("M", 2);
+        put("A", 4);
+        put("S", 8);
+    }};
 
     public Day04() {
-        input = FileUtils.parseInput("04");
-        testInput = FileUtils.parseTestInput("04");
-        WEIGHTS.put("X", 1);
-        WEIGHTS.put("M", 2);
-        WEIGHTS.put("A", 4);
-        WEIGHTS.put("S", 8);
+        super("04");
+        testValues = new Object[]{18, 9};
     }
 
     @Override

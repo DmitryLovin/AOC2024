@@ -2,6 +2,8 @@ package com.dmitrylovin.aoc2024.utils;
 
 import java.lang.reflect.Array;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 public class ArrayUtils {
     public static void moveDown (int[] arr, int from, int to) {
@@ -42,10 +44,18 @@ public class ArrayUtils {
         String[][] result = new String[lines.length][lines.length];
 
         for (int i = 0; i < lines.length; i++) {
-            String[] line = lines[i].trim().split("");
+            String[] line = lines[i].split("");
             for (int j = 0; j < line.length; j++) {
                 result[i][j] = line[j];
             }
+        }
+        return result;
+    }
+
+    public static <T> T[] mapString(Class<?> klazz, String[] array, Function<String, T> supplier) {
+        T[]result = (T[]) Array.newInstance(klazz, array.length);
+        for(int i = 0; i<result.length;i++){
+            result[i] = supplier.apply(array[i]);
         }
         return result;
     }
@@ -55,7 +65,7 @@ public class ArrayUtils {
         T[][] result = (T[][]) Array.newInstance(klazz, lines.length, lines.length);
 
         for (int i = 0; i < lines.length; i++) {
-            String[] line = lines[i].trim().split("");
+            String[] line = lines[i].split("");
             for (int j = 0; j < line.length; j++) {
                 result[i][j] = map.get(line[j]);
             }

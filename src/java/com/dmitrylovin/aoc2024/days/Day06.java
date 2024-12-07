@@ -2,19 +2,16 @@ package com.dmitrylovin.aoc2024.days;
 
 import com.dmitrylovin.aoc2024.models.Position;
 import com.dmitrylovin.aoc2024.models.Vector;
-import com.dmitrylovin.aoc2024.utils.FileUtils;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class Day06 extends DayHandler {
-    private final String[] input;
-    private final String[] testInput;
     Set<Position> OBSTACLES;
 
     public Day06() {
-        input = FileUtils.parseInput("06");
-        testInput = FileUtils.parseTestInput("06");
+        super("06");
+        testValues = new Object[]{41, 6};
     }
 
     @Override
@@ -59,9 +56,9 @@ public class Day06 extends DayHandler {
 
     private HashSet<Position> visited(Vector pos, int width, int height) {
         HashSet<Position> visited = new HashSet<>();
-        while (pos.x >= 0 && pos.x < width && pos.y >= 0 && pos.y < height){
+        while (pos.x >= 0 && pos.x < width && pos.y >= 0 && pos.y < height) {
             visited.add(pos.pos());
-            if(OBSTACLES.contains(pos.copy().move().pos())) {
+            if (OBSTACLES.contains(pos.copy().move().pos())) {
                 pos.rotate();
             } else {
                 pos.move();
@@ -70,17 +67,17 @@ public class Day06 extends DayHandler {
         return visited;
     }
 
-    private int deadEnd (Vector init, Position obstacle, int width, int height) {
+    private int deadEnd(Vector init, Position obstacle, int width, int height) {
         HashSet<Vector> visit = new HashSet<>();
         Vector pos = init.copy();
-        while (pos.x >= 0 && pos.x < width && pos.y >= 0 && pos.y < height){
-            if(visit.contains(pos)){
+        while (pos.x >= 0 && pos.x < width && pos.y >= 0 && pos.y < height) {
+            if (visit.contains(pos)) {
                 return 1;
             }
             visit.add(pos.copy());
 
             Position check = pos.copy().move().pos();
-            if(OBSTACLES.contains(check) || obstacle.equals(check)) {
+            if (OBSTACLES.contains(check) || obstacle.equals(check)) {
                 pos.rotate();
             } else {
                 pos.move();

@@ -28,9 +28,16 @@ public class Main {
             new InputStreamReader(System.in));
 
     public static void main(String[] args) throws IOException {
-        int day = pickValue("day");
-        if (DAYS.containsKey(day))
-            DAYS.get(day).get().handle();
+        if (args.length == 1 && args[0].equals("--all")) {
+            for (Map.Entry<Integer, Supplier<DayHandler>> supplierEntry : DAYS.entrySet()) {
+                System.out.printf("DAY %d:\n", supplierEntry.getKey());
+                supplierEntry.getValue().get().handle();
+            }
+        } else {
+            int day = pickValue("day");
+            if (DAYS.containsKey(day))
+                DAYS.get(day).get().handle();
+        }
     }
 
     private static int pickValue(String type) throws IOException {

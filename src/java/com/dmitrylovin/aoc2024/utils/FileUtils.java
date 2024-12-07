@@ -25,6 +25,6 @@ public class FileUtils {
 
         InputStreamReader streamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
         BufferedReader reader = new BufferedReader(streamReader);
-        return reader.lines().toArray(String[]::new);
+        return reader.lines().map(String::trim).toArray(String[]::new);
     }
 }

@@ -1,17 +1,13 @@
 package com.dmitrylovin.aoc2024.days;
 
-import com.dmitrylovin.aoc2024.utils.FileUtils;
 import com.dmitrylovin.aoc2024.utils.NumberUtils;
 
 import java.util.Arrays;
 
 public class Day07 extends DayHandler {
-    private final String[] input;
-    private final String[] testInput;
-
     public Day07() {
-        input = FileUtils.parseInput("07");
-        testInput = FileUtils.parseTestInput("07");
+        super("07");
+        testValues = new Object[]{3749L, 11387L};
     }
 
     @Override

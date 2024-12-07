@@ -1,19 +1,15 @@
 package com.dmitrylovin.aoc2024.days;
 
 import com.dmitrylovin.aoc2024.models.IntPair;
-import com.dmitrylovin.aoc2024.utils.FileUtils;
 
 import java.util.*;
 
 public class Day01 extends DayHandler {
-    private final String separator = " {3}";
-
-    private final String[] input;
-    private final String[] testInput;
+    private final static String SEPARATOR = " {3}";
 
     public Day01() {
-        input = FileUtils.parseInput("01");
-        testInput = FileUtils.parseTestInput("01");
+        super("01");
+        testValues = new Object[]{11, 31};
     }
 
     @Override
@@ -21,7 +17,7 @@ public class Day01 extends DayHandler {
         String[] input = isTestRun ? testInput : this.input;
 
         List<IntPair> pairs = Arrays.stream(input).parallel().map((row) -> {
-            Iterator<Integer> values = Arrays.stream(row.split(separator)).mapToInt(Integer::parseInt).iterator();
+            Iterator<Integer> values = Arrays.stream(row.split(SEPARATOR)).mapToInt(Integer::parseInt).iterator();
             return new IntPair(values.next(), values.next());
         }).toList();
 
@@ -38,7 +34,7 @@ public class Day01 extends DayHandler {
         List<Integer> leftList = new ArrayList<>();
         HashMap<Integer, Integer> rightList = new HashMap<>();
         Arrays.stream(input).forEach((row) -> {
-            Iterator<Integer> values = Arrays.stream(row.split(separator)).mapToInt(Integer::parseInt).iterator();
+            Iterator<Integer> values = Arrays.stream(row.split(SEPARATOR)).mapToInt(Integer::parseInt).iterator();
             leftList.add(values.next());
             rightList.merge(values.next(), 1, Integer::sum);
         });

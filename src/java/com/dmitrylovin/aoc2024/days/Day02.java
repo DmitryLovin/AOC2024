@@ -1,20 +1,16 @@
 package com.dmitrylovin.aoc2024.days;
 
 import com.dmitrylovin.aoc2024.utils.ArrayUtils;
-import com.dmitrylovin.aoc2024.utils.FileUtils;
 
 import java.util.Arrays;
 import java.util.Iterator;
 
 public class Day02 extends DayHandler {
-    private final String separator = " ";
-
-    private final String[] input;
-    private final String[] testInput;
+    private final static String SEPARATOR = " ";
 
     public Day02() {
-        input = FileUtils.parseInput("02");
-        testInput = FileUtils.parseTestInput("02");
+        super("02");
+        testValues = new Object[]{2, 4};
     }
 
     @Override
@@ -23,7 +19,7 @@ public class Day02 extends DayHandler {
 
         return Arrays.stream(input).parallel().mapToInt((row) ->
                 isValid(
-                        Arrays.stream(row.split(separator)).mapToInt(Integer::parseInt).toArray()
+                        Arrays.stream(row.split(SEPARATOR)).mapToInt(Integer::parseInt).toArray()
                 ) ? 1 : 0).sum();
     }
 
@@ -32,7 +28,7 @@ public class Day02 extends DayHandler {
         String[] input = isTestRun ? testInput : this.input;
 
         return Arrays.stream(input).parallel().mapToInt((row) -> {
-            int[] values = Arrays.stream(row.split(separator)).mapToInt(Integer::parseInt).toArray();
+            int[] values = Arrays.stream(row.split(SEPARATOR)).mapToInt(Integer::parseInt).toArray();
 
             if (isValid(values))
                 return 1;

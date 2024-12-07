@@ -1,21 +1,17 @@
 package com.dmitrylovin.aoc2024.days;
 
-import com.dmitrylovin.aoc2024.utils.FileUtils;
-
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.regex.Pattern;
 
 public class Day03 extends DayHandler {
-    private final String[] input;
-    private final String[] testInput;
-    private final Pattern PATTERN = Pattern.compile("mul\\(([0-9]{1,3},[0-9]{1,3})\\)");
-    private final Pattern PATTERN2 = Pattern.compile("(don't\\(\\))|(do\\(\\))|(mul\\([0-9]{1,3},[0-9]{1,3}\\))");
+    private final static Pattern PATTERN = Pattern.compile("mul\\(([0-9]{1,3},[0-9]{1,3})\\)");
+    private final static Pattern PATTERN2 = Pattern.compile("(don't\\(\\))|(do\\(\\))|(mul\\([0-9]{1,3},[0-9]{1,3}\\))");
 
     public Day03() {
-        input = FileUtils.parseInput("03");
-        testInput = FileUtils.parseTestInput("03");
+        super("03");
+        testValues = new Object[]{161, 48};
     }
 
     @Override
