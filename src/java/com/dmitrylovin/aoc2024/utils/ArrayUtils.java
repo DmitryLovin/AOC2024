@@ -3,12 +3,11 @@ package com.dmitrylovin.aoc2024.utils;
 import java.lang.reflect.Array;
 import java.util.Map;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 public class ArrayUtils {
-    public static void moveDown (int[] arr, int from, int to) {
+    public static void moveDown(int[] arr, int from, int to) {
         int value = arr[from];
-        for(int i = from; i > to; i--){
+        for (int i = from; i > to; i--) {
             arr[i] = arr[i - 1];
         }
         arr[to] = value;
@@ -16,6 +15,21 @@ public class ArrayUtils {
 
     public static int[] insert(int[] arr, int value, int index) {
         int[] result = new int[arr.length + 1];
+
+        for (int i = 0; i < result.length; i++) {
+            if (i < index)
+                result[i] = arr[i];
+            else if (i == index)
+                result[i] = value;
+            else
+                result[i] = arr[i - 1];
+        }
+
+        return result;
+    }
+
+    public static <T> T[] insert(T[] arr, T value, int index) {
+        T[] result = (T[]) Array.newInstance(value.getClass(), arr.length + 1);
 
         for (int i = 0; i < result.length; i++) {
             if (i < index)
@@ -53,8 +67,8 @@ public class ArrayUtils {
     }
 
     public static <T> T[] mapString(Class<?> klazz, String[] array, Function<String, T> supplier) {
-        T[]result = (T[]) Array.newInstance(klazz, array.length);
-        for(int i = 0; i<result.length;i++){
+        T[] result = (T[]) Array.newInstance(klazz, array.length);
+        for (int i = 0; i < result.length; i++) {
             result[i] = supplier.apply(array[i]);
         }
         return result;
