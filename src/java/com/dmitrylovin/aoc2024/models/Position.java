@@ -55,6 +55,12 @@ public class Position {
         return this;
     }
 
+    public Position add(int x, int y) {
+        this.x += x;
+        this.y += y;
+        return this;
+    }
+
     public Position sub(Position delta) {
         this.x -= delta.x;
         this.y -= delta.y;
