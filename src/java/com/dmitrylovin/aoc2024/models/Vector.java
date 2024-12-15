@@ -34,8 +34,12 @@ public class Vector {
     }
 
     public Vector move() {
-        this.x += this.dx;
-        this.y += this.dy;
+        return move(1);
+    }
+
+    public Vector move(int times) {
+        this.x += (this.dx * times);
+        this.y += (this.dy * times);
         return this;
     }
 

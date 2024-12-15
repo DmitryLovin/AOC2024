@@ -26,6 +26,10 @@ public class Main {
         DAYS.put(9, Day09::new);
         DAYS.put(10, Day10::new);
         DAYS.put(11, Day11::new);
+        DAYS.put(12, Day12::new);
+        DAYS.put(13, Day13::new);
+        DAYS.put(14, Day14::new);
+        DAYS.put(15, Day15::new);
     }
 
     private static final BufferedReader READER = new BufferedReader(
