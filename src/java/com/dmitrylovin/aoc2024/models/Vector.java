@@ -6,6 +6,10 @@ public class Vector {
     public int dx;
     public int dy;
 
+    public Vector(Position pos) {
+        this(pos.x, pos.y);
+    }
+
     public Vector(int x, int y) {
         this(x, y, 0, -1);
     }
@@ -17,7 +21,13 @@ public class Vector {
         this.dy = dy;
     }
 
-    public void rotate() {
+    public Vector setPos(Position position) {
+        this.x = position.x;
+        this.y = position.y;
+        return this;
+    }
+
+    public Vector rotate() {
         if(dy == -1){
             dx = 1;
             dy = 0;
@@ -31,6 +41,24 @@ public class Vector {
             dx = 0;
             dy = -1;
         }
+        return this;
+    }
+
+    public Vector rotateBack() {
+        if(dy == -1){
+            dx = -1;
+            dy = 0;
+        } else if (dx == -1) {
+            dx = 0;
+            dy = 1;
+        } else if (dy == 1) {
+            dx = 1;
+            dy = 0;
+        } else if (dx == 1) {
+            dx = 0;
+            dy = -1;
+        }
+        return this;
     }
 
     public Vector move() {
@@ -43,8 +71,38 @@ public class Vector {
         return this;
     }
 
+    public Vector back() {
+        this.x -= this.dx;
+        this.y -= this.dy;
+        return this;
+    }
+
     public Position pos() {
         return new Position(x, y);
+    }
+
+    public boolean inLine(Position position) {
+        if(position.x == x) {
+            int diff = position.y - y;
+            return (diff / Math.abs(diff) == dy);
+        } else if(position.y == y) {
+            int diff = position.x - x;
+            return (diff / Math.abs(diff) == dx);
+        }
+        return false;
+    }
+
+    public Vector rotateTo(Position position) {
+        if(position.x == x) {
+            dx = 0;
+            int diff = position.y - y;
+            dy = diff / Math.abs(diff);
+        } else if(position.y == y) {
+            dy = 0;
+            int diff = position.x - x;
+            dx = diff / Math.abs(diff);
+        }
+        return this;
     }
 
     public Position dir() {
