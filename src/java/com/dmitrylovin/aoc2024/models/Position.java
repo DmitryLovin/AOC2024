@@ -67,13 +67,17 @@ public class Position {
         return this;
     }
 
+    public int distance(Position another) {
+        return Math.abs(this.x - another.x) + Math.abs(this.y - another.y);
+    }
+
     public Position copy() {
         return new Position(x, y);
     }
 
     @Override
     public int hashCode() {
-        return y * 1000 + x;
+        return y * 500 + x;
     }
 
     @Override

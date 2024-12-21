@@ -10,6 +10,10 @@ public class Vector {
         this(pos.x, pos.y);
     }
 
+    public Vector(Position pos, Position dir) {
+        this(pos.x, pos.y, dir.x, dir.y);
+    }
+
     public Vector(int x, int y) {
         this(x, y, 0, -1);
     }

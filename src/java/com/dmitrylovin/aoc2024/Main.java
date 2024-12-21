@@ -5,8 +5,7 @@ import com.dmitrylovin.aoc2024.days.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Supplier;
 
 public class Main {
@@ -34,6 +33,8 @@ public class Main {
         DAYS.put(17, Day17::new);
         DAYS.put(18, Day18::new);
         DAYS.put(19, Day19::new);
+        DAYS.put(20, Day20::new);
+        DAYS.put(21, Day21::new);
     }
 
     private static final BufferedReader READER = new BufferedReader(
